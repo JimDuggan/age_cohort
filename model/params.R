@@ -2,8 +2,8 @@
 mod_data   <- new.env()
 
 # Allocate the epoches to a time vector
-mod_data$epoch_index <- c(rep(1,117),  # Epoch 1, the 2nd wave
-                          rep(2,53),   # Epoch 2, October lockdown
+epoch_index <- c(rep(1,117),  # Epoch 1, the 2nd wave
+                rep(2,53),   # Epoch 2, October lockdown
                           rep(3,28),   # Epoch 3, Christmas opening
                           rep(4,21))   # Epoch 4, January lockdown
 
@@ -22,10 +22,11 @@ mod_data$subclinical_duration          <- 5.0
 mod_data$preclinical_duration          <- 2.1
 mod_data$clinical_duration             <- 2.9
 mod_data$subclincial_infectiousness    <- 0.5
+mod_data$rep_fraction                  <- 0.8
 
 # Transmission parameters
-mod_data$TP        <- c(0.02037858,0.037920761,0.052685521,0.023069804,0.015007166,0.013659096)
-names(mod_data$TP) <- c("0012","1319","2024","2544","4564","65P")
+mod_data$Tr        <- c(0.02037858,0.037920761,0.052685521,0.023069804,0.015007166,0.013659096)
+names(mod_data$Tr) <- c("Age0012","Age1319","Age2024","Age2544","Age4564","Age65P")
 
 # Subclinical fraction values
 mod_data$scf_0012 <- 1 - 0.44
@@ -40,7 +41,7 @@ mod_data$SCF <- c(mod_data$scf_0012,
                   mod_data$scf_2544,
                   mod_data$scf_4564,
                   mod_data$scf_65P)
-names(mod_data$SCF) <- c("0012","1319","2024","2544","4564","65P")
+names(mod_data$SCF) <- c("Age0012","Age1319","Age2024","Age2544","Age4564","Age65P")
 
 # Set the time vector for the simulation
 mod_data$START<-1; 
@@ -160,7 +161,7 @@ stocks <- c(S0012   = mod_data$INIT_S0012,
 
 # Create population vector, equation (9) in paper
 population        <- c(911180,	457833, 300225, 1380806, 1222581, 697349)
-names(population) <- c("0012","1319","2024","2544","4564","65P")
+names(population) <- c("Age0012","Age1319","Age2024","Age2544","Age4564","Age65P")
 
 # Create K matrix, equation (10) in paper
 K <- array(dim = c(6,6,4))
